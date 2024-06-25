@@ -27,6 +27,7 @@ let pacman = {
     dy: 0,
     size: TILE_SIZE - 2,
     direction: NONE,
+    alive: true
 };
 
 let ghosts = [
@@ -153,14 +154,32 @@ function moveGhosts() {
     });
 }
 
+function checkCollisions() {
+    ghosts.forEach(ghost => {
+        if (pacman.x < ghost.x + ghost.size &&
+            pacman.x + pacman.size > ghost.x &&
+            pacman.y < ghost.y + ghost.size &&
+            pacman.y + pacman.size > ghost.y) {
+            pacman.alive = false;
+        }
+    });
+}
+
 function gameLoop() {
-    clearCanvas();
-    movePacman();
-    drawPacman();
-    updatePacman();
-    moveGhosts();
-    drawGhosts();
-    requestAnimationFrame(gameLoop);
+    if (pacman.alive) {
+        clearCanvas();
+        movePacman();
+        drawPacman();
+        updatePacman();
+        moveGhosts();
+        drawGhosts();
+        checkCollisions();
+        requestAnimationFrame(gameLoop);
+    } else {
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.fillText('Game Over', CANVAS_WIDTH / 2 - 50, CANVAS_HEIGHT / 2);
+    }
 }
 
 document.addEventListener('keydown', (event) => {
