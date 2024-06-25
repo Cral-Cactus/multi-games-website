@@ -10,13 +10,13 @@ const NONE = 4,
 
 const gameMap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [1, 0, 1, 1, 0, 0, 0, 1, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
@@ -38,11 +38,12 @@ function clearCanvas() {
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = '#0000FF';
+    ctx.strokeStyle = '#0000FF';
+    ctx.lineWidth = 2;
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             if (gameMap[row][col] === 1) {
-                ctx.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                ctx.strokeRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
     }
