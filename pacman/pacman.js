@@ -1,11 +1,9 @@
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 
-// Set canvas dimensions
 canvas.width = 600;
 canvas.height = 600;
 
-// Game variables
 const tileSize = 20;
 let pacman = {
     x: tileSize * 1,
@@ -15,7 +13,6 @@ let pacman = {
     size: tileSize - 2
 };
 
-// Draw Pac-Man
 function drawPacman() {
     ctx.fillStyle = 'yellow';
     ctx.beginPath();
@@ -24,19 +21,29 @@ function drawPacman() {
     ctx.fill();
 }
 
-// Clear the canvas
 function clearCanvas() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Update Pac-Man's position
 function updatePacman() {
     pacman.x += pacman.dx;
     pacman.y += pacman.dy;
+
+    // Check for boundary collisions and wrap around if necessary
+    if (pacman.x < 0) {
+        pacman.x = canvas.width - tileSize;
+    } else if (pacman.x >= canvas.width) {
+        pacman.x = 0;
+    }
+
+    if (pacman.y < 0) {
+        pacman.y = canvas.height - tileSize;
+    } else if (pacman.y >= canvas.height) {
+        pacman.y = 0;
+    }
 }
 
-// Main game loop
 function gameLoop() {
     clearCanvas();
     drawPacman();
@@ -44,10 +51,8 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
-// Start the game loop
 gameLoop();
 
-// Handle keyboard input
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'ArrowUp':
