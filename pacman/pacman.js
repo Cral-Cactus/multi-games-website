@@ -1,5 +1,5 @@
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 600;
+const CANVAS_WIDTH = 300;
+const CANVAS_HEIGHT = 300;
 const TILE_SIZE = 20;
 
 const NONE = 4,
@@ -7,6 +7,18 @@ const NONE = 4,
     LEFT = 2,
     DOWN = 1,
     RIGHT = 11;
+
+const gameMap = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
 
 let pacman = {
     x: TILE_SIZE,
@@ -26,21 +38,13 @@ function clearCanvas() {
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = 'blue';
-    ctx.lineWidth = 1;
-
-    for (let x = TILE_SIZE; x < CANVAS_WIDTH; x += TILE_SIZE) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, CANVAS_HEIGHT);
-        ctx.stroke();
-    }
-
-    for (let y = TILE_SIZE; y < CANVAS_HEIGHT; y += TILE_SIZE) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(CANVAS_WIDTH, y);
-        ctx.stroke();
+    ctx.fillStyle = '#0000FF';
+    for (let row = 0; row < gameMap.length; row++) {
+        for (let col = 0; col < gameMap[row].length; col++) {
+            if (gameMap[row][col] === 1) {
+                ctx.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+        }
     }
 }
 
@@ -73,9 +77,21 @@ function movePacman() {
     }
 }
 
+function canMoveTo(x, y) {
+    const gridX = Math.floor(x / TILE_SIZE);
+    const gridY = Math.floor(y / TILE_SIZE);
+
+    return gameMap[gridY][gridX] === 0;
+}
+
 function updatePacman() {
-    pacman.x += pacman.dx;
-    pacman.y += pacman.dy;
+    const newX = pacman.x + pacman.dx;
+    const newY = pacman.y + pacman.dy;
+
+    if (canMoveTo(newX, newY)) {
+        pacman.x = newX;
+        pacman.y = newY;
+    }
 
     if (pacman.x < 0) {
         pacman.x = CANVAS_WIDTH - TILE_SIZE;
