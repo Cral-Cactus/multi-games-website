@@ -29,6 +29,11 @@ let pacman = {
     direction: NONE,
 };
 
+let ghosts = [
+    { x: 7 * TILE_SIZE, y: 7 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
+    { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
+];
+
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = CANVAS_WIDTH;
@@ -55,6 +60,13 @@ function drawPacman() {
     ctx.arc(pacman.x + pacman.size / 2, pacman.y + pacman.size / 2, pacman.size / 2, 0.2 * Math.PI, 1.8 * Math.PI);
     ctx.lineTo(pacman.x + pacman.size / 2, pacman.y + pacman.size / 2);
     ctx.fill();
+}
+
+function drawGhosts() {
+    ctx.fillStyle = 'red';
+    ghosts.forEach(ghost => {
+        ctx.fillRect(ghost.x, ghost.y, ghost.size, ghost.size);
+    });
 }
 
 function movePacman() {
@@ -107,11 +119,47 @@ function updatePacman() {
     }
 }
 
+function moveGhosts() {
+    ghosts.forEach(ghost => {
+        ghost.moveCounter++;
+        if (ghost.moveCounter >= ghost.speed * 10) {
+            ghost.moveCounter = 0;
+            let directions = [UP, DOWN, LEFT, RIGHT];
+            directions.sort(() => Math.random() - 0.5);
+
+            for (let direction of directions) {
+                let newX = ghost.x, newY = ghost.y;
+                switch (direction) {
+                    case UP:
+                        newY -= TILE_SIZE;
+                        break;
+                    case DOWN:
+                        newY += TILE_SIZE;
+                        break;
+                    case LEFT:
+                        newX -= TILE_SIZE;
+                        break;
+                    case RIGHT:
+                        newX += TILE_SIZE;
+                        break;
+                }
+                if (canMoveTo(newX, newY)) {
+                    ghost.x = newX;
+                    ghost.y = newY;
+                    break;
+                }
+            }
+        }
+    });
+}
+
 function gameLoop() {
     clearCanvas();
     movePacman();
     drawPacman();
     updatePacman();
+    moveGhosts();
+    drawGhosts();
     requestAnimationFrame(gameLoop);
 }
 
