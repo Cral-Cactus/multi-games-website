@@ -37,6 +37,8 @@ let ghosts = [
 
 let points = [];
 let score = 0;
+let timer = 0;
+let timerInterval;
 
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
@@ -44,6 +46,7 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
 const scoreElement = document.getElementById('score');
+const timerElement = document.getElementById('timer');
 
 function initializePoints() {
     points = [];
@@ -225,6 +228,10 @@ function updateScore() {
     scoreElement.textContent = score;
 }
 
+function updateTimer() {
+    timerElement.textContent = timer;
+}
+
 function checkPointCollision() {
     points = points.filter(point => {
         const distX = Math.abs(point.x - (pacman.x + pacman.size / 2));
@@ -256,11 +263,23 @@ function resetGame() {
     ];
 
     score = 0;
+    timer = 0;
     updateScore();
+    updateTimer();
     initializePoints();
+
+    clearInterval(timerInterval);
+    startTimer();
 
     document.removeEventListener('keydown', handleRestart);
     gameLoop();
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timer++;
+        updateTimer();
+    }, 1000);
 }
 
 function gameLoop() {
@@ -276,6 +295,7 @@ function gameLoop() {
         checkPointCollision();
         requestAnimationFrame(gameLoop);
     } else {
+        clearInterval(timerInterval);
         ctx.fillStyle = 'white';
         ctx.font = '20px Arial';
         ctx.fillText('Game Over', CANVAS_WIDTH / 2 - 50, CANVAS_HEIGHT / 2);
@@ -312,4 +332,5 @@ pacman.y = TILE_SIZE;
 pacman.direction = LEFT;
 
 initializePoints();
+startTimer();
 gameLoop();
