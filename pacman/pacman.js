@@ -36,12 +36,16 @@ let ghosts = [
 ];
 
 let points = [];
+let score = 0;
 
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
+const scoreElement = document.getElementById('score');
+
+// Initialize points
 function initializePoints() {
     points = [];
     for (let row = 0; row < gameMap.length; row++) {
@@ -216,10 +220,20 @@ function checkCollisions() {
             pacman.alive = false;
         }
     });
+}
 
+function updateScore() {
+    scoreElement.textContent = score;
+}
+
+function checkPointCollision() {
     points = points.filter(point => {
-        if (Math.abs(pacman.x + pacman.size / 2 - point.x) < pacman.size / 2 &&
-            Math.abs(pacman.y + pacman.size / 2 - point.y) < pacman.size / 2) {
+        const distX = Math.abs(point.x - (pacman.x + pacman.size / 2));
+        const distY = Math.abs(point.y - (pacman.y + pacman.size / 2));
+
+        if (distX < pacman.size / 2 && distY < pacman.size / 2) {
+            score++;
+            updateScore();
             return false;
         }
         return true;
@@ -242,6 +256,8 @@ function resetGame() {
         { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
     ];
 
+    score = 0;
+    updateScore();
     initializePoints();
 
     document.removeEventListener('keydown', handleRestart);
@@ -258,6 +274,7 @@ function gameLoop() {
         moveGhosts();
         drawGhosts();
         checkCollisions();
+        checkPointCollision();
         requestAnimationFrame(gameLoop);
     } else {
         ctx.fillStyle = 'white';
