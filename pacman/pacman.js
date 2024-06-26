@@ -35,10 +35,23 @@ let ghosts = [
     { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
 ];
 
+let points = [];
+
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
+
+function initializePoints() {
+    points = [];
+    for (let row = 0; row < gameMap.length; row++) {
+        for (let col = 0; col < gameMap[row].length; col++) {
+            if (gameMap[row][col] === 0) {
+                points.push({ x: col * TILE_SIZE + TILE_SIZE / 2, y: row * TILE_SIZE + TILE_SIZE / 2 });
+            }
+        }
+    }
+}
 
 function clearCanvas() {
     ctx.fillStyle = '#000';
@@ -53,6 +66,15 @@ function clearCanvas() {
             }
         }
     }
+}
+
+function drawPoints() {
+    ctx.fillStyle = 'white';
+    points.forEach(point => {
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+        ctx.fill();
+    });
 }
 
 function drawPacman() {
@@ -194,6 +216,14 @@ function checkCollisions() {
             pacman.alive = false;
         }
     });
+
+    points = points.filter(point => {
+        if (Math.abs(pacman.x + pacman.size / 2 - point.x) < pacman.size / 2 &&
+            Math.abs(pacman.y + pacman.size / 2 - point.y) < pacman.size / 2) {
+            return false;
+        }
+        return true;
+    });
 }
 
 function resetGame() {
@@ -212,6 +242,8 @@ function resetGame() {
         { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
     ];
 
+    initializePoints();
+
     document.removeEventListener('keydown', handleRestart);
     gameLoop();
 }
@@ -219,6 +251,7 @@ function resetGame() {
 function gameLoop() {
     if (pacman.alive) {
         clearCanvas();
+        drawPoints();
         movePacman();
         drawPacman();
         updatePacman();
@@ -262,4 +295,5 @@ pacman.x = TILE_SIZE;
 pacman.y = TILE_SIZE;
 pacman.direction = LEFT;
 
+initializePoints();
 gameLoop();
