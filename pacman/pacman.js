@@ -64,9 +64,40 @@ function drawPacman() {
 }
 
 function drawGhosts() {
-    ctx.fillStyle = 'red';
     ghosts.forEach(ghost => {
-        ctx.fillRect(ghost.x, ghost.y, ghost.size, ghost.size);
+        ctx.fillStyle = 'red';
+        const ghostX = ghost.x + ghost.size / 2;
+        const ghostY = ghost.y + ghost.size / 2;
+        const radius = ghost.size / 2;
+
+        ctx.beginPath();
+        ctx.arc(ghostX, ghostY - radius / 2, radius, Math.PI, 0);
+        ctx.lineTo(ghostX + radius, ghostY + radius / 2);
+
+        for (let i = 0; i <= 4; i++) {
+            const x = ghostX + radius - (radius / 2) * i;
+            const y = ghostY + radius / 2 + (i % 2 === 0 ? 0 : radius / 2);
+            ctx.lineTo(x, y);
+        }
+        ctx.lineTo(ghostX - radius, ghostY + radius / 2);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = 'white';
+        const eyeOffsetX = radius / 3;
+        const eyeOffsetY = radius / 3;
+        const eyeRadius = radius / 5;
+
+        ctx.beginPath();
+        ctx.arc(ghostX - eyeOffsetX, ghostY - eyeOffsetY, eyeRadius, 0, 2 * Math.PI);
+        ctx.arc(ghostX + eyeOffsetX, ghostY - eyeOffsetY, eyeRadius, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(ghostX - eyeOffsetX, ghostY - eyeOffsetY, eyeRadius / 2, 0, 2 * Math.PI);
+        ctx.arc(ghostX + eyeOffsetX, ghostY - eyeOffsetY, eyeRadius / 2, 0, 2 * Math.PI);
+        ctx.fill();
     });
 }
 
@@ -181,7 +212,7 @@ function resetGame() {
         { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
     ];
 
-    document.removeEventListener('keydown', handleRestart); // Remove the event listener
+    document.removeEventListener('keydown', handleRestart);
     gameLoop();
 }
 
@@ -200,7 +231,7 @@ function gameLoop() {
         ctx.font = '20px Arial';
         ctx.fillText('Game Over', CANVAS_WIDTH / 2 - 50, CANVAS_HEIGHT / 2);
         ctx.fillText('Press R to Restart', CANVAS_WIDTH / 2 - 80, CANVAS_HEIGHT / 2 + 30);
-        document.addEventListener('keydown', handleRestart, { once: true }); // Add the event listener
+        document.addEventListener('keydown', handleRestart, { once: true });
     }
 }
 
