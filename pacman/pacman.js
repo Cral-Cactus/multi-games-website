@@ -45,7 +45,6 @@ canvas.height = CANVAS_HEIGHT;
 
 const scoreElement = document.getElementById('score');
 
-// Initialize points
 function initializePoints() {
     points = [];
     for (let row = 0; row < gameMap.length; row++) {
