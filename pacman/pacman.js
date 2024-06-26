@@ -165,6 +165,26 @@ function checkCollisions() {
     });
 }
 
+function resetGame() {
+    pacman = {
+        x: TILE_SIZE,
+        y: TILE_SIZE,
+        dx: 0,
+        dy: 0,
+        size: TILE_SIZE - 2,
+        direction: NONE,
+        alive: true
+    };
+
+    ghosts = [
+        { x: 7 * TILE_SIZE, y: 7 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
+        { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
+    ];
+
+    document.removeEventListener('keydown', handleRestart); // Remove the event listener
+    gameLoop();
+}
+
 function gameLoop() {
     if (pacman.alive) {
         clearCanvas();
@@ -179,6 +199,14 @@ function gameLoop() {
         ctx.fillStyle = 'white';
         ctx.font = '20px Arial';
         ctx.fillText('Game Over', CANVAS_WIDTH / 2 - 50, CANVAS_HEIGHT / 2);
+        ctx.fillText('Press R to Restart', CANVAS_WIDTH / 2 - 80, CANVAS_HEIGHT / 2 + 30);
+        document.addEventListener('keydown', handleRestart, { once: true }); // Add the event listener
+    }
+}
+
+function handleRestart(event) {
+    if (event.key === 'r' || event.key === 'R') {
+        resetGame();
     }
 }
 
