@@ -40,7 +40,7 @@ let bonusPoints = [];
 let score = 0;
 let timer = 0;
 let timerInterval;
-let bonusEffectDuration = 5000; // Duration in milliseconds
+let bonusEffectDuration = 5000;
 let bonusActive = false;
 
 const canvas = document.getElementById('game-canvas');
@@ -57,7 +57,7 @@ function initializePoints() {
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             if (gameMap[row][col] === 0) {
-                if (Math.random() < 0.1) { // 10% chance to be a bonus point
+                if (Math.random() < 0.1) {
                     bonusPoints.push({ x: col * TILE_SIZE + TILE_SIZE / 2, y: row * TILE_SIZE + TILE_SIZE / 2 });
                 } else {
                     points.push({ x: col * TILE_SIZE + TILE_SIZE / 2, y: row * TILE_SIZE + TILE_SIZE / 2 });
@@ -255,7 +255,7 @@ function checkPointCollision() {
         if (distX < pacman.size / 2 && distY < pacman.size / 2) {
             score++;
             updateScore();
-            return false; // point is eaten
+            return false;
         }
         return true;
     });
@@ -265,10 +265,10 @@ function checkPointCollision() {
         const distY = Math.abs(bonusPoint.y - (pacman.y + pacman.size / 2));
 
         if (distX < pacman.size / 2 && distY < pacman.size / 2) {
-            score += 5; // bonus points give more score
+            score += 5;
             updateScore();
             activateBonusEffect();
-            return false; // bonus point is eaten
+            return false;
         }
         return true;
     });
@@ -276,13 +276,13 @@ function checkPointCollision() {
 
 function activateBonusEffect() {
     ghosts.forEach(ghost => {
-        ghost.speed = 0.5; // Slow down the ghosts
+        ghost.speed = 3;
     });
     bonusActive = true;
 
     setTimeout(() => {
         ghosts.forEach(ghost => {
-            ghost.speed = ghost.normalSpeed; // Restore ghost speed
+            ghost.speed = ghost.normalSpeed;
         });
         bonusActive = false;
     }, bonusEffectDuration);
