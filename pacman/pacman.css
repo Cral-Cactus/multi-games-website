@@ -1,33 +1,33 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #000;
-    font-family: Arial, sans-serif;
-    color: #fff;
+    background-color: black;
 }
 
-#game-wrapper {
+#pacman {
+    height: 470px;
+    width: 382px;
+    border-radius: 5px;
+    margin: 20px auto;
+}
+
+#shim {
+    font-family: 'Permanent Marker', cursive;
+    position: absolute;
+    visibility: hidden
+}
+
+h1 {
+    font-family: 'Permanent Marker', cursive;
     text-align: center;
+    color: yellow;
 }
 
-#game-container {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    background-color: #000;
-    overflow: hidden;
-    margin: 0 auto;
+body {
+    width: 342px;
+    margin: 0px auto;
+    font-family: sans-serif;
 }
 
-#game-canvas {
-    width: 100%;
-    height: 100%;
-}
-
-#score-container, #timer-container {
-    margin-bottom: 10px;
-    font-size: 20px;
+p {
+    text-decoration: none;
+    color: #0000FF;
 }
