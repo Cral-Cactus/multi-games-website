@@ -31,14 +31,17 @@ let pacman = {
 };
 
 let ghosts = [
-    { x: 7 * TILE_SIZE, y: 7 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
-    { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
+    { x: 7 * TILE_SIZE, y: 7 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0, normalSpeed: 1 },
+    { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0, normalSpeed: 1 },
 ];
 
 let points = [];
+let bonusPoints = [];
 let score = 0;
 let timer = 0;
 let timerInterval;
+let bonusEffectDuration = 5000; // Duration in milliseconds
+let bonusActive = false;
 
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
@@ -50,10 +53,15 @@ const timerElement = document.getElementById('timer');
 
 function initializePoints() {
     points = [];
+    bonusPoints = [];
     for (let row = 0; row < gameMap.length; row++) {
         for (let col = 0; col < gameMap[row].length; col++) {
             if (gameMap[row][col] === 0) {
-                points.push({ x: col * TILE_SIZE + TILE_SIZE / 2, y: row * TILE_SIZE + TILE_SIZE / 2 });
+                if (Math.random() < 0.1) { // 10% chance to be a bonus point
+                    bonusPoints.push({ x: col * TILE_SIZE + TILE_SIZE / 2, y: row * TILE_SIZE + TILE_SIZE / 2 });
+                } else {
+                    points.push({ x: col * TILE_SIZE + TILE_SIZE / 2, y: row * TILE_SIZE + TILE_SIZE / 2 });
+                }
             }
         }
     }
@@ -79,6 +87,13 @@ function drawPoints() {
     points.forEach(point => {
         ctx.beginPath();
         ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+        ctx.fill();
+    });
+
+    ctx.fillStyle = 'blue';
+    bonusPoints.forEach(bonusPoint => {
+        ctx.beginPath();
+        ctx.arc(bonusPoint.x, bonusPoint.y, 5, 0, 2 * Math.PI);
         ctx.fill();
     });
 }
@@ -240,10 +255,37 @@ function checkPointCollision() {
         if (distX < pacman.size / 2 && distY < pacman.size / 2) {
             score++;
             updateScore();
-            return false;
+            return false; // point is eaten
         }
         return true;
     });
+
+    bonusPoints = bonusPoints.filter(bonusPoint => {
+        const distX = Math.abs(bonusPoint.x - (pacman.x + pacman.size / 2));
+        const distY = Math.abs(bonusPoint.y - (pacman.y + pacman.size / 2));
+
+        if (distX < pacman.size / 2 && distY < pacman.size / 2) {
+            score += 5; // bonus points give more score
+            updateScore();
+            activateBonusEffect();
+            return false; // bonus point is eaten
+        }
+        return true;
+    });
+}
+
+function activateBonusEffect() {
+    ghosts.forEach(ghost => {
+        ghost.speed = 0.5; // Slow down the ghosts
+    });
+    bonusActive = true;
+
+    setTimeout(() => {
+        ghosts.forEach(ghost => {
+            ghost.speed = ghost.normalSpeed; // Restore ghost speed
+        });
+        bonusActive = false;
+    }, bonusEffectDuration);
 }
 
 function resetGame() {
@@ -258,8 +300,8 @@ function resetGame() {
     };
 
     ghosts = [
-        { x: 7 * TILE_SIZE, y: 7 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
-        { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0 },
+        { x: 7 * TILE_SIZE, y: 7 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0, normalSpeed: 1 },
+        { x: 7 * TILE_SIZE, y: 1 * TILE_SIZE, size: TILE_SIZE - 2, direction: NONE, speed: 1, moveCounter: 0, normalSpeed: 1 },
     ];
 
     score = 0;
