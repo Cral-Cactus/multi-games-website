@@ -1,16 +1,15 @@
 const gameContainer = document.getElementById('game-container');
+const counterDisplay = document.getElementById('counter');
 const emojis = ['🍎', '🍌', '🍇', '🍒', '🍓', '🍉', '🍋', '🍑'];
 const cardValues = generateCardValues(emojis);
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let attempts = 0;
 
 function generateCardValues(emojis) {
     const values = [];
-    for (let i = 0; i < emojis.length; i++) {
-        values.push(emojis[i], emojis[i]);
-    }
-    values.splice(9); 
+    emojis.forEach(emoji => values.push(emoji, emoji));
     return shuffleArray(values);
 }
 
@@ -36,6 +35,7 @@ function createCard(value) {
 function revealCard(cardElement) {
     if (lockBoard) return;
     if (cardElement === firstCard) return;
+    if (cardElement.classList.contains('matched')) return;
 
     cardElement.classList.add('flipped');
 
@@ -44,6 +44,8 @@ function revealCard(cardElement) {
     } else {
         secondCard = cardElement;
         lockBoard = true;
+        attempts++;
+        counterDisplay.textContent = `Attempts: ${attempts}`;
         checkForMatch();
     }
 }
@@ -60,8 +62,8 @@ function checkForMatch() {
 }
 
 function disableCards() {
-    firstCard.removeEventListener('click', () => revealCard(firstCard));
-    secondCard.removeEventListener('click', () => revealCard(secondCard));
+    firstCard.classList.add('matched');
+    secondCard.classList.add('matched');
     resetBoard();
 }
 

@@ -1,6 +1,6 @@
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
@@ -8,9 +8,15 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.counter {
+    margin: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
 .game-container {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
+    grid-template-columns: repeat(4, 100px);
     grid-gap: 20px;
 }
 
