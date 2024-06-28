@@ -9,9 +9,9 @@ body {
 }
 
 .game-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 20px;
 }
 
 .card {
@@ -19,6 +19,7 @@ body {
     height: 150px;
     perspective: 1000px;
     cursor: pointer;
+    position: relative;
 }
 
 .card div {
