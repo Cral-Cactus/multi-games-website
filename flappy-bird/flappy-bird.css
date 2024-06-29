@@ -1,35 +1,9 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #70c5ce;
-}
-
-#game-container {
-    position: relative;
-    width: 320px;
-    height: 480px;
-    overflow: hidden;
-    background-color: #70c5ce;
-}
-
-canvas {
+#canvas
+{
+    background-color:#30c0df;
+    border: 2px solid black;
     display: block;
-    background-color: #70c5ce;
-}
-
-#game-over {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
+    margin: auto;
+    padding: auto;
+    
 }
