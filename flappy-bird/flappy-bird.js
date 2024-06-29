@@ -7,6 +7,8 @@ canvas.width = 320;
 canvas.height = 480;
 
 let bird, pipes, score, frameCount, gameInterval;
+const pipeWidth = 40;
+const pipeGap = 100;
 
 function init() {
     bird = {
@@ -14,8 +16,8 @@ function init() {
         y: 150,
         width: 20,
         height: 20,
-        gravity: 0.6,
-        lift: -15,
+        gravity: 1,
+        lift: -12,
         velocity: 0
     };
 
@@ -33,8 +35,8 @@ function drawBird() {
 function drawPipes() {
     ctx.fillStyle = 'green';
     pipes.forEach(pipe => {
-        ctx.fillRect(pipe.x, 0, pipe.width, pipe.top);
-        ctx.fillRect(pipe.x, pipe.bottom, pipe.width, canvas.height - pipe.bottom);
+        ctx.fillRect(pipe.x, 0, pipeWidth, pipe.top);
+        ctx.fillRect(pipe.x, pipe.bottom, pipeWidth, canvas.height - pipe.bottom);
     });
 }
 
