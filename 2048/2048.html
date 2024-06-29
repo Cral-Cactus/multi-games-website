@@ -2,46 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 Game</title>
     <link rel="stylesheet" href="2048.css">
+    <title>2048</title>
 </head>
 <body>
-    <div class="game-container">
-        <div class="score-container">
-            <div class="score">Score: <span id="score">0</span></div>
-            <div class="best">Best: <span id="best">0</span></div>
+    <div id="top" class="container">
+
+        <div class="head">
+            <span class="title">2048</span>
+            <span class="score" id="score">Score: 0</span>
+            <br><br>
+            <a href="./../2048-Game/index.html" class="new-game score">New Game</a>
         </div>
-        <div class="grid-container">
-            <div class="grid">
-                <div class="grid-row">
-                    <div class="grid-cell" data-pos="0-0"></div>
-                    <div class="grid-cell" data-pos="0-1"></div>
-                    <div class="grid-cell" data-pos="0-2"></div>
-                    <div class="grid-cell" data-pos="0-3"></div>
-                </div>
-                <div class="grid-row">
-                    <div class="grid-cell" data-pos="1-0"></div>
-                    <div class="grid-cell" data-pos="1-1"></div>
-                    <div class="grid-cell" data-pos="1-2"></div>
-                    <div class="grid-cell" data-pos="1-3"></div>
-                </div>
-                <div class="grid-row">
-                    <div class="grid-cell" data-pos="2-0"></div>
-                    <div class="grid-cell" data-pos="2-1"></div>
-                    <div class="grid-cell" data-pos="2-2"></div>
-                    <div class="grid-cell" data-pos="2-3"></div>
-                </div>
-                <div class="grid-row">
-                    <div class="grid-cell" data-pos="3-0"></div>
-                    <div class="grid-cell" data-pos="3-1"></div>
-                    <div class="grid-cell" data-pos="3-2"></div>
-                    <div class="grid-cell" data-pos="3-3"></div>
-                </div>
+
+        <div class="board" id="board">
+            
+        </div>
+        
+        <div class="key" id="keyup">
+            <img src="./Resources/chevron-up.png" alt="">
+        </div>
+        <div class="arrow-keys">
+            <div class="key" id="keyleft">
+                <img src="./Resources/chevron-left.png" alt="">
+            </div>
+            <div class="key" id="keydown">
+                <img src="./Resources/chevron-down.png" alt="">
+            </div>
+            <div class="key" id="keyright">
+                <img src="./Resources/chevron-right.png" alt="">
             </div>
         </div>
-        <button id="new-game">New Game</button>
+
     </div>
-    <script src="2048.js"></script>
+    <script src="./2048.js"></script>
 </body>
 </html>

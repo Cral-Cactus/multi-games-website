@@ -1,99 +1,193 @@
-body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #faf8ef;
+*{
     margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #776e65;
 }
 
-.game-container {
-    text-align: center;
+html{
+    scroll-behavior: smooth;
 }
 
-.score-container {
-    display: flex;
-    justify-content: space-between;
-    width: 300px;
-    margin-bottom: 10px;
+body{
+    background-color: antiquewhite;
 }
 
-.score, .best {
-    background-color: #bbada0;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.grid-container {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    background: #bbada0;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-}
-
-.grid {
+.container{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-}
-
-.grid-row {
-    display: flex;
-    justify-content: space-between;
-}
-
-.grid-cell {
-    width: 65px;
-    height: 65px;
-    background: rgba(238, 228, 218, 0.35);
-    border-radius: 5px;
-    display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
 }
 
-.tile {
-    position: absolute;
-    width: 65px;
-    height: 65px;
-    background: #eee4da;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    transition: all 0.2s ease-in-out;
+.head{
+    width: 25rem;
+    height: 9.375rem;
+    margin-top: 2rem;
 }
 
-.tile-2 { background: #eee4da; }
-.tile-4 { background: #ede0c8; }
-.tile-8 { background: #f2b179; }
-.tile-16 { background: #f59563; }
-.tile-32 { background: #f67c5f; }
-.tile-64 { background: #f65e3b; }
-.tile-128 { background: #edcf72; }
-.tile-256 { background: #edcc61; }
-.tile-512 { background: #edc850; }
-.tile-1024 { background: #edc53f; }
-.tile-2048 { background: #edc22e; }
+.new-game{
+    text-decoration: none;
+}
 
-button {
-    background: #8f7a66;
+.score{
     color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    background-color: #776e65;
+    height: 1.875rem;
+    width: 5.625rem;
+    border-radius: 0.2rem;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-size: 3.75rem;
+    font-weight: bold;
+}
+
+.new-game:hover{
     cursor: pointer;
-    font-size: 18px;
-    margin-top: 20px;
+}
+
+.board{
+    height: 25rem;
+    width: 25rem;
+    background: #cdc1b5;
+    border: 0.3125rem solid  #bbada0;
+    border-radius: 0.3125rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tile{
+    height: 5.625rem;
+    width: 5.625rem;
+    border: 0.3125rem solid #bbada0;
+    font-size: 3.125rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 500ms all linear;
+}
+
+
+.b2 {
+    background-color: #eee4da;
+    color: #727371;
+}
+
+.b4 {
+    background-color: #ece0ca;
+    color: #727371;
+}
+
+.b8 {
+    background-color: #f4b17a;
+    color: white;
+}
+
+.b16{
+    background-color: #f59575;
+    color: white;
+}
+
+.b32{
+    background-color: #f57c5f;
+    color: white;
+}
+
+.b64{
+    background-color: #f65d3b;
+    color: white;
+}
+
+.b128{
+    background-color: #edce71;
+    color: white;
+}
+
+.b256{
+    background-color: #edcc63;
+    color: white;
+}
+
+.b512{
+    background-color: #edc651;
+    color: white;
+}
+
+.b1024{
+    background-color: #eec744;
+    color: white;
+}
+
+.b2048{
+    background-color: #ecc230;
+    color: white;
+}
+
+.b4096 {
+    background-color: #fe3d3d;
+    color: white;
+}
+
+.b8192 {
+    background-color: #ff2020;
+    color: white;
+}
+
+p{
+    font-size: 1.1rem;
+}
+
+.arrow-keys, .key{
+    display: none;
+}
+
+.key{
+    height: 5rem;
+    width: 5rem;
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: #bbada0;
+    margin: 0.5rem;
+}
+
+.key img{
+    width: 4.5rem;
+}
+
+#keyup{
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 500px) {
+    :root {
+        font-size: 12px;
+    }
+    .tile{
+        height: 5.75rem;
+        width: 5.75rem;
+    }
+    .arrow-keys, .key{
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    :root {
+        font-size: 10px;
+    }
+    .arrow-keys, .key{
+        display: flex;
+    }
+    .tile{
+        height: 5.65rem;
+        width: 5.65rem;
+    }
 }
