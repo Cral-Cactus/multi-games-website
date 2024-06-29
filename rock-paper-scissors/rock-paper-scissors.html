@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <script src="https://kit.fontawesome.com/ad76778149.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="rock-paper-scissors.css">
+</head>
+
+<body>
+    <div class="header">
+
+        <button class="theme-toggle">
+            <span class="icon" id="sun-icon">☀️</span>
+            <span class="icon" id="moon-icon">🌙</span>
+        </button>
+
+        <div id="results">
+            <h2>Results</h2>
+            <p id="result"></p>
+            <div class="scores">
+                <p>Player: <span id="p1-score">0</span></p>
+                <p>PC: <span id="p2-score">0</span></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main-container">
+
+        <div class="buttons-container">
+
+            <button class="button" data-selection="rock">✊</button>
+            <button class="button" data-selection="paper">✋</button>
+            <button class="button" data-selection="scissors">✌</button>
+
+        </div>
+    </div>
+
+    <script src="rock-paper-scissors.js"></script>
+</body>
+
+</html>
