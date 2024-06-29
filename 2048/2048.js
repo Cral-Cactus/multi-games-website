@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tile = document.createElement('div');
                     tile.classList.add('tile', `tile-${tiles[i][j]}`);
                     tile.innerText = tiles[i][j];
-                    tile.style.transform = `translate(${j * 75}px, ${i * 75}px)`;
+                    tile.style.left = `${j * 75}px`;
+                    tile.style.top = `${i * 75}px`;
                     gridContainer.appendChild(tile);
                 }
             }
