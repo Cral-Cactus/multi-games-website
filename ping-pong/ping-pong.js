@@ -110,6 +110,12 @@ function loop() {
         ball.x = rightPaddle.x - ball.width;
     }
 
+    if (collides(ball, leftPaddle) || collides(ball, rightPaddle)) {
+        ball.dx *= -1;
+        ball.dx *= 1.05;
+        ball.dy *= 1.05;
+    }
+
     context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
     context.fillStyle = 'lightgrey';
