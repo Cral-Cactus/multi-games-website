@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Basic Snake HTML Game</title>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
   <link rel="stylesheet" type="text/css" href="snake.css">
 </head>
 <body>
-<canvas width="400" height="400" id="game"></canvas>
-<script src="snake.js"></script>
+  <div id="game-container">
+    <canvas width="400" height="400" id="game"></canvas>
+    <div id="score">Score: 0</div>
+    <div id="game-over" style="display: none;">Game Over! Press R to Restart</div>
+  </div>
+  <script src="snake.js"></script>
 </body>
 </html>
