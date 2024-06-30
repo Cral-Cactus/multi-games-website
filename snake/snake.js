@@ -13,6 +13,7 @@ var score = 0;
 var highScore = localStorage.getItem('highScore') || 0;
 var speed = 4;
 var isPaused = false;
+var isGameOver = false;
 
 highScoreElement.textContent = 'High Score: ' + highScore;
 
@@ -47,11 +48,13 @@ function resetGame() {
     apple.y = getRandomInt(0, 25) * grid;
     scoreElement.textContent = 'Score: ' + score;
     gameOverElement.style.display = 'none';
+    isGameOver = false;
 }
 
 function gameOver() {
     gameOverElement.style.display = 'block';
     gameOverSound.play();
+    isGameOver = true;
     if (score > highScore) {
         highScore = score;
         localStorage.setItem('highScore', highScore);
@@ -60,6 +63,7 @@ function gameOver() {
 }
 
 function togglePause() {
+    if (isGameOver) return;
     isPaused = !isPaused;
     if (isPaused) {
         document.getElementById('pause').textContent = 'Resume';
@@ -70,7 +74,7 @@ function togglePause() {
 }
 
 function loop() {
-    if (isPaused) return;
+    if (isPaused || isGameOver) return;
 
     requestAnimationFrame(loop);
 
