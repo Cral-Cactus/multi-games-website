@@ -9,4 +9,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+canvas {
+    position: relative;
+    z-index: 1;
+}
+
+.score {
+    position: absolute;
+    color: white;
+    font-size: 32px;
+    font-family: Arial, sans-serif;
+    top: 20px;
+}
+
+#leftScore {
+    left: 20px;
+}
+
+#rightScore {
+    right: 20px;
 }

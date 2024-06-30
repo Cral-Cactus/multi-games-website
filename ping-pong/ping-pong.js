@@ -1,7 +1,7 @@
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 15;
-const paddleHeight = grid * 5; // 80
+const paddleHeight = grid * 5;
 const maxPaddleY = canvas.height - grid - paddleHeight;
 
 var paddleSpeed = 6;
@@ -12,28 +12,34 @@ const leftPaddle = {
     y: canvas.height / 2 - paddleHeight / 2,
     width: grid,
     height: paddleHeight,
-
     dy: 0
 };
+
 const rightPaddle = {
     x: canvas.width - grid * 3,
     y: canvas.height / 2 - paddleHeight / 2,
     width: grid,
     height: paddleHeight,
-
     dy: 0
 };
+
 const ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     width: grid,
     height: grid,
-
     resetting: false,
-
     dx: ballSpeed,
     dy: -ballSpeed
 };
+
+let leftScore = 0;
+let rightScore = 0;
+
+function updateScore() {
+    document.getElementById('leftScore').textContent = leftScore;
+    document.getElementById('rightScore').textContent = rightScore;
+}
 
 function collides(obj1, obj2) {
     return obj1.x < obj2.x + obj2.width &&
@@ -76,23 +82,21 @@ function loop() {
         ball.dy *= -1;
     }
 
-    if ((ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
-        ball.resetting = true;
-
-        setTimeout(() => {
-            ball.resetting = false;
-            ball.x = canvas.width / 2;
-            ball.y = canvas.height / 2;
-        }, 400);
+    if (ball.x < 0 && !ball.resetting) {
+        rightScore++;
+        updateScore();
+        resetBall();
+    } else if (ball.x > canvas.width && !ball.resetting) {
+        leftScore++;
+        updateScore();
+        resetBall();
     }
 
     if (collides(ball, leftPaddle)) {
         ball.dx *= -1;
-
         ball.x = leftPaddle.x + leftPaddle.width;
     } else if (collides(ball, rightPaddle)) {
         ball.dx *= -1;
-
         ball.x = rightPaddle.x - ball.width;
     }
 
@@ -107,8 +111,19 @@ function loop() {
     }
 }
 
-document.addEventListener('keydown', function (e) {
+function resetBall() {
+    ball.resetting = true;
 
+    setTimeout(() => {
+        ball.resetting = false;
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.dx = ballSpeed * (Math.random() > 0.5 ? 1 : -1);
+        ball.dy = ballSpeed * (Math.random() > 0.5 ? 1 : -1);
+    }, 400);
+}
+
+document.addEventListener('keydown', function (e) {
     if (e.which === 38) {
         rightPaddle.dy = -paddleSpeed;
     } else if (e.which === 40) {
