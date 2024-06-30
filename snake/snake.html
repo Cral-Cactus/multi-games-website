@@ -10,8 +10,18 @@
   <div id="game-container">
     <canvas width="400" height="400" id="game"></canvas>
     <div id="score">Score: 0</div>
+    <div id="high-score">High Score: 0</div>
     <div id="game-over" style="display: none;">Game Over! Press R to Restart</div>
+    <div id="mobile-controls" style="display: none;">
+      <button id="left">Left</button>
+      <button id="up">Up</button>
+      <button id="right">Right</button>
+      <button id="down">Down</button>
+      <button id="pause">Pause</button>
+    </div>
   </div>
+  <audio id="eat-sound" src="eat.mp3" preload="auto"></audio>
+  <audio id="game-over-sound" src="gameover.mp3" preload="auto"></audio>
   <script src="snake.js"></script>
 </body>
 </html>

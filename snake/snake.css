@@ -19,7 +19,7 @@ canvas {
     border: 1px solid white;
 }
 
-#score {
+#score, #high-score {
     color: white;
     font-family: Arial, sans-serif;
     font-size: 20px;
@@ -31,4 +31,19 @@ canvas {
     font-family: Arial, sans-serif;
     font-size: 24px;
     margin-top: 10px;
+}
+
+#mobile-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    margin: 10px auto;
+}
+
+button {
+    background: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
 }

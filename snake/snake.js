@@ -1,12 +1,20 @@
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 var scoreElement = document.getElementById('score');
+var highScoreElement = document.getElementById('high-score');
 var gameOverElement = document.getElementById('game-over');
+var mobileControls = document.getElementById('mobile-controls');
+var eatSound = document.getElementById('eat-sound');
+var gameOverSound = document.getElementById('game-over-sound');
 
 var grid = 16;
 var count = 0;
 var score = 0;
+var highScore = localStorage.getItem('highScore') || 0;
 var speed = 4;
+var isPaused = false;
+
+highScoreElement.textContent = 'High Score: ' + highScore;
 
 var snake = {
     x: 160,
@@ -43,9 +51,27 @@ function resetGame() {
 
 function gameOver() {
     gameOverElement.style.display = 'block';
+    gameOverSound.play();
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore', highScore);
+        highScoreElement.textContent = 'High Score: ' + highScore;
+    }
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    if (isPaused) {
+        document.getElementById('pause').textContent = 'Resume';
+    } else {
+        document.getElementById('pause').textContent = 'Pause';
+        requestAnimationFrame(loop);
+    }
 }
 
 function loop() {
+    if (isPaused) return;
+
     requestAnimationFrame(loop);
 
     if (++count < speed) {
@@ -98,6 +124,7 @@ function loop() {
             }
 
             scoreElement.textContent = 'Score: ' + score;
+            eatSound.play();
         }
 
         for (var i = index + 1; i < snake.cells.length; i++) {
@@ -124,8 +151,40 @@ document.addEventListener('keydown', function (e) {
         snake.dx = 0;
     } else if (e.which === 82) {
         resetGame();
+    } else if (e.which === 80) {
+        togglePause();
     }
 });
 
+document.getElementById('left').addEventListener('click', function () {
+    if (snake.dx === 0) {
+        snake.dx = -grid;
+        snake.dy = 0;
+    }
+});
+document.getElementById('up').addEventListener('click', function () {
+    if (snake.dy === 0) {
+        snake.dy = -grid;
+        snake.dx = 0;
+    }
+});
+document.getElementById('right').addEventListener('click', function () {
+    if (snake.dx === 0) {
+        snake.dx = grid;
+        snake.dy = 0;
+    }
+});
+document.getElementById('down').addEventListener('click', function () {
+    if (snake.dy === 0) {
+        snake.dy = grid;
+        snake.dx = 0;
+    }
+});
+document.getElementById('pause').addEventListener('click', togglePause);
+
 resetGame();
 requestAnimationFrame(loop);
+
+if (/Mobi|Android/i.test(navigator.userAgent)) {
+    mobileControls.style.display = 'block';
+}
