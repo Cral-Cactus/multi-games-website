@@ -33,6 +33,14 @@ const ball = {
     dy: -ballSpeed
 };
 
+function moveAIPaddle() {
+    if (ball.dy > 0) {
+        rightPaddle.dy = paddleSpeed;
+    } else {
+        rightPaddle.dy = -paddleSpeed;
+    }
+}
+
 let leftScore = 0;
 let rightScore = 0;
 
@@ -51,6 +59,8 @@ function collides(obj1, obj2) {
 function loop() {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    moveAIPaddle();
 
     leftPaddle.y += leftPaddle.dy;
     rightPaddle.y += rightPaddle.dy;
@@ -125,25 +135,25 @@ function resetBall() {
 
 document.addEventListener('keydown', function (e) {
     if (e.which === 38) {
-        rightPaddle.dy = -paddleSpeed;
+        leftPaddle.dy = -paddleSpeed;
     } else if (e.which === 40) {
-        rightPaddle.dy = paddleSpeed;
+        leftPaddle.dy = paddleSpeed;
     }
 
     if (e.which === 87) {
-        leftPaddle.dy = -paddleSpeed;
+        rightPaddle.dy = -paddleSpeed;
     } else if (e.which === 83) {
-        leftPaddle.dy = paddleSpeed;
+        rightPaddle.dy = paddleSpeed;
     }
 });
 
 document.addEventListener('keyup', function (e) {
     if (e.which === 38 || e.which === 40) {
-        rightPaddle.dy = 0;
+        leftPaddle.dy = 0;
     }
 
     if (e.which === 83 || e.which === 87) {
-        leftPaddle.dy = 0;
+        rightPaddle.dy = 0;
     }
 });
 
