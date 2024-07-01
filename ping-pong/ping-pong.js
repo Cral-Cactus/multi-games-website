@@ -4,7 +4,7 @@ const grid = 15;
 const paddleHeight = grid * 5;
 const maxPaddleY = canvas.height - grid - paddleHeight;
 const maxScore = 10;
-
+let isPaused = false;
 var paddleSpeed = 6;
 var ballSpeed = 5;
 
@@ -111,6 +111,11 @@ function checkPowerUpCollision() {
 }
 
 function loop() {
+    if (isPaused) {
+        requestAnimationFrame(loop);
+        return;
+    }
+    
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -200,6 +205,10 @@ function resetBall() {
 }
 
 document.addEventListener('keydown', function (e) {
+    if (e.key === 'p') {
+        isPaused = !isPaused;
+    }
+
     if (e.which === 38) {
         leftPaddle.dy = -paddleSpeed;
     } else if (e.which === 40) {
