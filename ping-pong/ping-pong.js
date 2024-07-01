@@ -140,6 +140,31 @@ function movePaddle(paddle) {
     }
 }
 
+const trailColor = 'rgba(255, 255, 255, 0.5)';
+const maxTrailLength = 30;
+const trailSegmentSize = 5;
+let trail = [];
+
+function updateTrail() {
+    trail.unshift({
+        x: ball.x,
+        y: ball.y
+    });
+
+    if (trail.length > maxTrailLength) {
+        trail.pop();
+    }
+}
+
+function drawTrail() {
+    for (let i = 0; i < trail.length; i++) {
+        let alpha = 1.0 - (i / maxTrailLength);
+        context.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        let segment = trail[i];
+        context.fillRect(segment.x, segment.y, trailSegmentSize, trailSegmentSize);
+    }
+}
+
 function loop() {
     if (isPaused) {
         requestAnimationFrame(loop);
@@ -151,6 +176,7 @@ function loop() {
 
     updateFPS();
     drawPowerUp();
+    updateTrail();
 
     movePaddle(leftPaddle);
     moveAIPaddle();
@@ -169,6 +195,8 @@ function loop() {
     } else if (rightPaddle.y > maxPaddleY) {
         rightPaddle.y = maxPaddleY;
     }
+
+    drawTrail();
 
     context.fillStyle = 'white';
     context.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
