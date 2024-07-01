@@ -97,11 +97,25 @@ function drawPowerUp() {
     }
 }
 
+function checkPowerUpCollision() {
+    if (collides(ball, powerUp)) {
+        powerUp.active = false;
+        ball.dx *= 1.5;
+        ball.dy *= 1.5;
+        setTimeout(() => {
+            powerUp.x = Math.random() * (canvas.width - grid);
+            powerUp.y = Math.random() * (canvas.height - grid);
+            powerUp.active = true;
+        }, 5000);
+    }
+}
+
 function loop() {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     updateFPS();
+    drawPowerUp();
     moveAIPaddle();
 
     leftPaddle.y += leftPaddle.dy;
@@ -169,6 +183,8 @@ function loop() {
     for (let i = grid; i < canvas.height - grid; i += grid * 2) {
         context.fillRect(canvas.width / 2 - grid / 2, i, grid, grid);
     }
+
+    checkPowerUpCollision();
 }
 
 function resetBall() {
