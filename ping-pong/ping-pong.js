@@ -110,12 +110,30 @@ function checkPowerUpCollision() {
     }
 }
 
+let difficulty = 'easy';
+
+function setDifficulty(level) {
+    difficulty = level;
+    if (level === 'easy') {
+        ballSpeed = 3;
+        paddleSpeed = 4;
+    } else if (level === 'medium') {
+        ballSpeed = 5;
+        paddleSpeed = 6;
+    } else if (level === 'hard') {
+        ballSpeed = 7;
+        paddleSpeed = 8;
+    }
+    ball.dx = ballSpeed;
+    ball.dy = -ballSpeed;
+}
+
 function loop() {
     if (isPaused) {
         requestAnimationFrame(loop);
         return;
     }
-    
+
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -205,6 +223,14 @@ function resetBall() {
 }
 
 document.addEventListener('keydown', function (e) {
+    if (e.key === '1') {
+        setDifficulty('easy');
+    } else if (e.key === '2') {
+        setDifficulty('medium');
+    } else if (e.key === '3') {
+        setDifficulty('hard');
+    }
+
     if (e.key === 'p') {
         isPaused = !isPaused;
     }
