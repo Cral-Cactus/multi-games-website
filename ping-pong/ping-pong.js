@@ -35,10 +35,13 @@ const ball = {
 };
 
 function moveAIPaddle() {
-    if (ball.dy > 0) {
+    const paddleCenter = rightPaddle.y + paddleHeight / 2;
+    if (paddleCenter < ball.y - grid) {
         rightPaddle.dy = paddleSpeed;
-    } else {
+    } else if (paddleCenter > ball.y + grid) {
         rightPaddle.dy = -paddleSpeed;
+    } else {
+        rightPaddle.dy = 0;
     }
 }
 
@@ -148,10 +151,9 @@ function loop() {
 
     updateFPS();
     drawPowerUp();
-    moveAIPaddle();
 
     movePaddle(leftPaddle);
-    movePaddle(rightPaddle);
+    moveAIPaddle();
 
     leftPaddle.y += leftPaddle.dy;
     rightPaddle.y += rightPaddle.dy;
