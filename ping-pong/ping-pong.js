@@ -82,6 +82,21 @@ function updateFPS() {
     fpsDisplay.textContent = `FPS: ${fps}`;
 }
 
+const powerUp = {
+    x: Math.random() * (canvas.width - grid),
+    y: Math.random() * (canvas.height - grid),
+    width: grid,
+    height: grid,
+    active: true
+};
+
+function drawPowerUp() {
+    if (powerUp.active) {
+        context.fillStyle = 'red';
+        context.fillRect(powerUp.x, powerUp.y, powerUp.width, powerUp.height);
+    }
+}
+
 function loop() {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
