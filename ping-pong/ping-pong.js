@@ -128,6 +128,15 @@ function setDifficulty(level) {
     ball.dy = -ballSpeed;
 }
 
+function movePaddle(paddle) {
+    paddle.y += paddle.dy;
+    if (paddle.y < grid) {
+        paddle.y = grid;
+    } else if (paddle.y > maxPaddleY) {
+        paddle.y = maxPaddleY;
+    }
+}
+
 function loop() {
     if (isPaused) {
         requestAnimationFrame(loop);
@@ -140,6 +149,9 @@ function loop() {
     updateFPS();
     drawPowerUp();
     moveAIPaddle();
+
+    movePaddle(leftPaddle);
+    movePaddle(rightPaddle);
 
     leftPaddle.y += leftPaddle.dy;
     rightPaddle.y += rightPaddle.dy;
