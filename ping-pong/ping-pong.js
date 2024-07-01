@@ -66,10 +66,27 @@ function collides(obj1, obj2) {
         obj1.y + obj1.height > obj2.y;
 }
 
+let lastFrameTime = Date.now();
+let fpsDisplay = document.createElement('div');
+fpsDisplay.style.position = 'absolute';
+fpsDisplay.style.color = 'white';
+fpsDisplay.style.top = '60px';
+fpsDisplay.style.left = '20px';
+document.body.appendChild(fpsDisplay);
+
+function updateFPS() {
+    let now = Date.now();
+    let delta = (now - lastFrameTime) / 1000;
+    lastFrameTime = now;
+    let fps = Math.round(1 / delta);
+    fpsDisplay.textContent = `FPS: ${fps}`;
+}
+
 function loop() {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    updateFPS();
     moveAIPaddle();
 
     leftPaddle.y += leftPaddle.dy;

@@ -2,6 +2,7 @@ html,
 body {
     height: 100%;
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -21,7 +22,6 @@ canvas {
     position: absolute;
     color: white;
     font-size: 32px;
-    font-family: Arial, sans-serif;
     top: 20px;
 }
 
