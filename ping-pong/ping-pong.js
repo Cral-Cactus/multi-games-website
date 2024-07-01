@@ -3,6 +3,7 @@ const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5;
 const maxPaddleY = canvas.height - grid - paddleHeight;
+const maxScore = 10;
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
@@ -38,6 +39,15 @@ function moveAIPaddle() {
         rightPaddle.dy = paddleSpeed;
     } else {
         rightPaddle.dy = -paddleSpeed;
+    }
+}
+
+function checkGameOver() {
+    if (leftScore >= maxScore || rightScore >= maxScore) {
+        alert(`${leftScore >= maxScore ? 'Left' : 'Right'} player wins!`);
+        leftScore = 0;
+        rightScore = 0;
+        updateScore();
     }
 }
 
@@ -95,10 +105,12 @@ function loop() {
     if (ball.x < 0 && !ball.resetting) {
         rightScore++;
         updateScore();
+        checkGameOver();
         resetBall();
     } else if (ball.x > canvas.width && !ball.resetting) {
         leftScore++;
         updateScore();
+        checkGameOver();
         resetBall();
     }
 
