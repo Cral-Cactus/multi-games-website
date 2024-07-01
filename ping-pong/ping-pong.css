@@ -18,11 +18,18 @@ canvas {
     z-index: 1;
 }
 
-.score {
+#scoreboard {
     position: absolute;
     color: white;
-    font-size: 32px;
-    top: 20px;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.score {
+    margin: 0 10px;
 }
 
 #leftScore {

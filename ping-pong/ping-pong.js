@@ -47,7 +47,7 @@ function moveAIPaddle() {
 
 function checkGameOver() {
     if (leftScore >= maxScore || rightScore >= maxScore) {
-        alert(`${leftScore >= maxScore ? 'Left' : 'Right'} player wins!`);
+        alert(`${leftScore >= maxScore ? 'Player 1' : 'Player 2'} wins!`);
         leftScore = 0;
         rightScore = 0;
         updateScore();
