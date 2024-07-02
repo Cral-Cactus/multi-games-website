@@ -19,26 +19,24 @@
                 } else {
                     foreach ($gameDirectories as $gameDir) {
                         $gameTitle = ucfirst($gameDir);
-                        //$gameImage = $gameDir . '/' . $gameDir . '.jpg'; // Assuming each game folder has an image named the same as the folder
-                        $gameHTML = $gameDir . '/' . $gameDir . '.html'; // Link to the game's HTML file
+                        $gameHTML = $gameDir . '/' . $gameDir . '.html';
 
-                        //if (file_exists($gameImage) && file_exists($gameHTML)) {
                         if (file_exists($gameHTML)) {
                             echo '<div class="card">';
-                            //echo '<img src="' . $gameImage . '" alt="' . $gameTitle . '">';
                             echo '<div class="card-content">';
                             echo '<h2>' . $gameTitle . '</h2>';
                             echo '<p>Description of ' . $gameTitle . '.</p>';
-                            echo '<button onclick="window.location.href=\'' . $gameHTML . '\'">Play Now</button>';
+                            echo '<button onclick="loadGame(\'' . $gameHTML . '\')">Play Now</button>';
                             echo '</div>';
                             echo '</div>';
-                        } else {
-                            //echo '<p>Missing files for ' . $gameTitle . '. Ensure both ' . $gameDir . '/' . $gameDir . '.jpg and ' . $gameDir . '/' . $gameDir . '.html exist.</p>';
                         }
                     }
                 }
             ?>
         </div>
+        <iframe id="game-frame" class="game-frame"></iframe>
+        <button id="close-button" class="close-button" onclick="closeGame()">Close Game</button>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
