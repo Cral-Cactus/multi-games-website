@@ -37,8 +37,8 @@ We welcome contributions! If you have a game you'd like to add, follow these ste
 │   ├── 2048.html
 │   └── (additional files)
 │
-├── memory-match/
-│   ├── memory-match.html
+├── cards/
+│   ├── cards.html
 │   └── (additional files)
 │
 ├── flappy-bird/
