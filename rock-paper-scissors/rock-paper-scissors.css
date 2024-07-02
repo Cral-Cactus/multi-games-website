@@ -52,39 +52,6 @@ body {
     margin-top: 1rem;
 }
 
-.theme-toggle {
-
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    margin-bottom: 50vh;
-}
-
-.icon {
-    display: inline-block;
-}
-
-#sun-icon {
-    display: none;
-}
-
-.dark #moon-icon {
-    display: none;
-}
-
-.dark #sun-icon {
-    display: inline-block;
-    color: white;
-    font-size: 30px;
-}
-
-.light #moon-icon {
-    display: inline-block;
-}
-
 .main-container {
     display: flex;
     justify-content: center;
@@ -125,18 +92,18 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-body.dark {
+body {
     background-color: #222222;
     color: #fff;
 }
 
-body.dark .button {
+body .button {
     border-color: #fff;
     background-color: #3b3b3b;
     color: #fff;
 }
 
-body.dark .button:hover {
+body .button:hover {
     color: #fff;
     box-shadow: 15px 15px 5px rgba(0, 0, 0, 0.25);
 }

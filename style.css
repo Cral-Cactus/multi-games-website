@@ -67,29 +67,3 @@ main {
 .card-content button:hover {
     background-color: #218838;
 }
-
-.game-frame {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-}
-
-.close-button {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 10000;
-    display: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-}
